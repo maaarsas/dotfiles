@@ -19,6 +19,13 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
+# Set to dark mode
+# defaults write -g AppleInterfaceStyle -string "Dark"
+
+# Always show scrollbars
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+# Possible values: `WhenScrolling`, `Automatic` and `Always`
+
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
@@ -72,8 +79,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to 48 pixels
+defaults write com.apple.dock tilesize -int 48
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -93,6 +100,29 @@ defaults write com.apple.dock autohide -bool true
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
+# Hot corners
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+# Top left screen corner → Mission Control
+defaults write com.apple.dock wvous-tl-corner -int 11
+defaults write com.apple.dock wvous-tl-modifier -int 0
+# Top right screen corner → Desktop
+defaults write com.apple.dock wvous-tr-corner -int 2
+defaults write com.apple.dock wvous-tr-modifier -int 0
+# Bottom left screen corner → Start screen saver
+defaults write com.apple.dock wvous-bl-corner -int 4
+defaults write com.apple.dock wvous-bl-modifier -int 0
+
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
@@ -100,6 +130,21 @@ defaults write com.apple.dock show-recents -bool false
 # Show all processes in Activity Monitor
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
+###############################################################################
+# Menu bar                                                                    #
+###############################################################################
+
+# Show langague/keyboard switch in Menu bar
+defaults write com.apple.TextInputMenu visible -int 0
+
+# Show battery percentage in Menu bar
+defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+# Set clock settings in Menu bar
+defaults write com.apple.menuextra.clock DateFormat -string "HH:mm:ss"
+defaults write com.apple.menuextra.clock ShowDayOfMonth -int 0
+defaults write com.apple.menuextra.clock ShowDayOfWeek -int 0
+defaults write com.apple.menuextra.clock ShowSeconds -int 1
 
 ###############################################################################
 # Kill affected applications                                                  #
@@ -112,8 +157,6 @@ for app in "Activity Monitor" \
 	"Messages" \
 	"Photos" \
 	"Safari" \
-	"SizeUp" \
-	"Spectacle" \
 	"SystemUIServer" \
 	"Terminal"; do
 	killall "${app}" &> /dev/null
