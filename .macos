@@ -135,7 +135,7 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 ###############################################################################
 
 # Show langague/keyboard switch in Menu bar
-defaults write com.apple.TextInputMenu visible -int 0
+defaults write com.apple.TextInputMenu visible -int 1
 
 # Show battery percentage in Menu bar
 defaults write com.apple.menuextra.battery ShowPercent -bool true
