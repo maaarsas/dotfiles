@@ -14,6 +14,9 @@ brew update
 brew tap homebrew/bundle
 brew bundle
 
+
+ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
+
 # Set macOS preferences
 # We will run this last because this will reload the shell
 source .macos
