@@ -8,6 +8,9 @@ return {
       "nvim-tree/nvim-web-devicons", -- optional, but recommended
     },
     lazy = false, -- neo-tree will lazily load itself
+    keys = {
+      { "<leader>fe", "<cmd>Neotree reveal<cr>", desc = "Reveal current file in tree" },
+    },
     opts = {
       filesystem = {
         filtered_items = {

@@ -3,6 +3,10 @@ brew 'htop'
 brew 'tmux'
 brew 'wget'
 brew 'neovim'
+brew 'ripgrep' # telescope live_grep
+brew 'fd' # telescope find_files
+brew 'tree-sitter' # nvim-treesitter parser compilation
+brew 'lazygit' # git TUI, used by lazygit.nvim
 
 # Apps
 cask 'claude-code'
