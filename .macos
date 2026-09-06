@@ -10,7 +10,11 @@ osascript -e 'tell application "System Preferences" to quit'
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -68,9 +72,12 @@ sudo chflags nohidden /Volumes
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+  General -bool true \
+  OpenWith -bool true \
+  Privileges -bool true
+
+# Columns automatically resize to fit content
+defaults write com.apple.finder "_FXEnableColumnAutoSizing" -bool "true"
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -123,6 +130,9 @@ defaults write com.apple.dock wvous-tr-modifier -int 131072
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 131072
 
+# Disable bouncing to demand attention
+defaults write com.apple.dock no-bouncing -bool false
+
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
@@ -147,18 +157,25 @@ defaults write com.apple.menuextra.clock ShowDayOfWeek -int 0
 defaults write com.apple.menuextra.clock ShowSeconds -int 1
 
 ###############################################################################
+# Safari                                                                      #
+###############################################################################
+
+# Show full URL
+defaults write com.apple.Safari "ShowFullURLInSmartSearchField" -bool "true"
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
 for app in "Activity Monitor" \
-	"Dock" \
-	"Finder" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"Terminal"; do
-	killall "${app}" &> /dev/null
+  "Dock" \
+  "Finder" \
+  "Mail" \
+  "Messages" \
+  "Photos" \
+  "Safari" \
+  "SystemUIServer" \
+  "Terminal"; do
+  killall "${app}" &>/dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
