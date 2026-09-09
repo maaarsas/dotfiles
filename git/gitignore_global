@@ -1,0 +1,8 @@
+# Global ignores, applied in every repo via core.excludesfile.
+# Patterns only -- this file is parsed as gitignore, so a stray config line
+# like `[alias]` becomes a character class and silently ignores real files.
+
+.DS_Store
+.idea
+.ruby-lsp/
+**/.claude/settings.local.json

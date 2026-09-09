@@ -1,0 +1,48 @@
+# Machine-independent git config. Identity and any work-specific overrides
+# live in ~/.gitconfig.local, included at the bottom.
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[branch]
+    autosetuprebase = always
+
+[branch "master"]
+    rebase = true
+
+[branch "main"]
+    rebase = true
+
+[rebase]
+    stat = true
+    autoStash = true
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[web]
+    browser = open
+
+[core]
+    excludesfile = ~/.gitignore
+
+# Clone over SSH even when handed an https URL.
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+# Machine-local: [user] identity, work hosts, credentials. Sourced last so it
+# can override anything above. Absent on a fresh machine, which git tolerates.
+[include]
+    path = ~/.gitconfig.local

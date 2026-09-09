@@ -5,11 +5,14 @@ return {
 			"nvim-lua/plenary.nvim",
 			-- native fzf sorter: much faster on large repos, needs make + a C compiler
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			-- orders <leader>ff by frecency (recently + often opened first)
+			{ "nvim-telescope/telescope-frecency.nvim", version = "*" },
 		},
 		cmd = "Telescope",
 		keys = {
 			-- files and text
-			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			-- recently/often opened files first, then the rest of the cwd
+			{ "<leader>ff", "<cmd>Telescope frecency workspace=CWD<cr>", desc = "Find files" },
 			{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
 			{ "<leader>fw", "<cmd>Telescope grep_string<cr>", desc = "Grep word under cursor" },
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
@@ -32,10 +35,19 @@ return {
 			pickers = {
 				find_files = { hidden = true },
 			},
+			extensions = {
+				frecency = {
+					-- unscored files under the cwd are still listed (show_unindexed
+					-- defaults to true), so this stays a full find_files replacement
+					default_workspace = "CWD",
+					show_filter_column = false,
+				},
+			},
 		},
 		config = function(_, opts)
 			require("telescope").setup(opts)
 			pcall(require("telescope").load_extension, "fzf")
+			pcall(require("telescope").load_extension, "frecency")
 		end,
 	},
 }

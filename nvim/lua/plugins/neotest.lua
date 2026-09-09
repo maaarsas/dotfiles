@@ -4,7 +4,6 @@ return {
 		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			{
 				"fredrikaverpil/neotest-golang",
@@ -14,6 +13,7 @@ return {
 					vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait()
 				end,
 			},
+			"olimorris/neotest-rspec",
 		},
 		keys = {
 			{
@@ -74,11 +74,32 @@ return {
 			},
 		},
 		config = function()
+			local rspec = require("neotest-rspec")({
+				rspec_cmd = function()
+					return { "bundle", "exec", "rspec" }
+				end,
+			})
+
+			-- neotest-rspec's dap strategy sets `current_line = true`, which makes nvim-dap-ruby
+			-- append `expand("%:p"):line(".")` to the rspec args. The spec path is already in the
+			-- command, and when the run starts from the summary window `%` is the summary buffer --
+			-- rspec then dies on a bogus path before the debugger is ever attached to.
+			local build_spec = rspec.build_spec
+			rspec.build_spec = function(args)
+				local spec = build_spec(args)
+				if spec and spec.strategy then
+					spec.strategy.current_line = false
+					spec.strategy.current_file = false
+				end
+				return spec
+			end
+
 			require("neotest").setup({
 				adapters = {
 					require("neotest-golang")({
 						runner = "gotestsum",
 					}),
+					rspec,
 				},
 			})
 		end,

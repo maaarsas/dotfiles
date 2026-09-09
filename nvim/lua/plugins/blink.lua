@@ -1,6 +1,7 @@
 return {
 	{
 		"saghen/blink.cmp", -- 124
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = { "rafamadriz/friendly-snippets" },
 		-- V2 is under active development with breaking changes and needs blink.lib;
 		-- a release tag also means a prebuilt Rust binary instead of a cargo build.

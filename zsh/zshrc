@@ -1,0 +1,51 @@
+# Interactive shell config. Machine-specific and work-specific things live in
+# ~/.zshrc.local, which is sourced at the bottom and never committed.
+
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+setopt EXTENDED_HISTORY HIST_VERIFY
+
+# Prompt: user, cwd, git branch
+function parse_git_branch() {
+    git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
+}
+
+COLOR_DEF=$'%f'
+COLOR_USR=$'%F{243}'
+COLOR_DIR=$'%F{39}'
+COLOR_GIT=$'%F{197}'
+setopt PROMPT_SUBST
+export PROMPT='${COLOR_USR}%n ${COLOR_DIR}%~ ${COLOR_GIT}$(parse_git_branch)${COLOR_DEF} $ '
+
+# Open a project as a tmux window (nvim | terminal | ai), named after its
+# directory. Adds to the current session when already inside tmux.
+#   proj ~/src/some-service
+#   proj .
+proj() {
+  local dir="${1:-$PWD}"
+  dir="${dir:A}"                 # resolve to an absolute, real path
+  [[ -d "$dir" ]] || { echo "proj: not a directory: $dir" >&2; return 1; }
+  local name="${dir:t}"          # basename
+  name="${name//[.:]/_}"         # tmux dislikes dots and colons
+
+  # No -i: the template's `session: dev` is the target, created once and
+  # reused. TMUX= keeps this on the top-level server, since the nested
+  # terminal runs on its own socket (-L nested).
+  TMUX= smug start project -w "$name" --detach root="$dir" name="$name"
+
+  # Focus the new window; attach instead if we're not in tmux yet.
+  # TMUX= tmux switch-client -t "dev:$name" 2>/dev/null \
+    # || TMUX= tmux attach -t "dev:$name"
+}
+
+# Machine-local: work tooling, secrets, per-machine paths. Sourced last so it
+# can override anything above. Absent on a fresh machine, which is fine.
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local

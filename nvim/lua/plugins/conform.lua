@@ -6,6 +6,8 @@ return {
 		opts = {
 			formatters_by_ft = {
 				go = { "goimports" }, -- supersedes gofmt: also adds/removes imports
+				ruby = { "rubocop" },
+				eruby = { "erb_format" },
 				lua = { "stylua" },
 				sh = { "shfmt" },
 				json = { "jq" },
@@ -16,6 +18,13 @@ return {
 				-- Use the "_" filetype to run formatters on filetypes that don't
 				-- have other formatters configured.
 				["_"] = { "trim_whitespace" },
+			},
+			-- conform's rubocop runs the bare binary; use the project's pinned one
+			formatters = {
+				rubocop = {
+					command = "bundle",
+					prepend_args = { "exec", "rubocop" },
+				},
 			},
 			-- filetypes without an entry above fall back to their language server
 			default_format_opts = { lsp_format = "fallback" },
