@@ -31,6 +31,12 @@ return {
 		opts = {
 			defaults = {
 				path_display = { "truncate" },
+				mappings = {
+					i = {
+						["<C-Down>"] = "cycle_history_next",
+						["<C-Up>"] = "cycle_history_prev",
+					},
+				},
 			},
 			pickers = {
 				find_files = { hidden = true },
