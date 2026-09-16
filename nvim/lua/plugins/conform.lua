@@ -12,7 +12,8 @@ return {
 				eruby = { "erb_format" },
 				lua = { "stylua" },
 				sh = { "shfmt" },
-				json = { "jq" },
+				-- not jq: it expands every object and array onto separate lines
+				json = { "prettierd", "prettier", stop_after_first = true },
 				-- not prettier: it rewrites single quotes to double
 				yaml = { "yamlfmt" },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
