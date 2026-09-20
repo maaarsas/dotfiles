@@ -9,3 +9,8 @@ export VISUAL=nvim
 # Machine-local environment. Kept here rather than in ~/.zshrc.local so the
 # vars reach non-interactive shells too, the way they did before the split.
 [[ -r ~/.zshenv.local ]] && source ~/.zshenv.local
+
+# Force Homebrew to automatically remove old downloaded formula/cask tarballs/DMGs
+# older than 7 days
+export HOMEBREW_CLEANUP_MAX_AGE_DAYS=7
+export HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS=7

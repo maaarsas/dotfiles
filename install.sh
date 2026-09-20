@@ -11,7 +11,11 @@ fi
 brew update
 
 # Install all our dependencies with bundle (See Brewfile), upgrading outdated ones
-brew bundle install --upgrade
+brew bundle install --upgrade --file homebrew/Brewfile
+
+# Set up homebrew periodic background cleanup
+chmod +x ./homebrew/setup-cleanup-job.sh
+./homebrew/setup-cleanup-job.sh
 
 # Set up TMUX plugins
 if [ -d ~/.tmux/plugins/tpm ]; then
