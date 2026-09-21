@@ -35,6 +35,9 @@ ln -sfn ~/.dotfiles/.tmux.conf ~/.tmux.conf
 ln -sfn ~/.dotfiles/zsh/zshrc ~/.zshrc
 ln -sfn ~/.dotfiles/zsh/zshenv ~/.zshenv
 
+mkdir -p ~/.claude
+ln -sfn ~/.dotfiles/claude/settings.json ~/.claude/settings.json
+
 # Machine-local zsh config lives outside this repo (it holds work tooling and
 # credentials). Seed empty files so the sourcing in zshrc/zshenv is a no-op.
 touch ~/.zshrc.local ~/.zshenv.local
