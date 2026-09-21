@@ -17,6 +17,15 @@ brew bundle install --upgrade --file homebrew/Brewfile
 chmod +x ./homebrew/setup-cleanup-job.sh
 ./homebrew/setup-cleanup-job.sh
 
+# Homebrew doesn't package gh extensions, so gh/extensions is their manifest.
+if command -v gh >/dev/null; then
+  while read -r extension; do
+    case $extension in '' | \#*) continue ;; esac
+    gh extension install "$extension" 2>/dev/null || true
+  done < gh/extensions
+  gh extension upgrade --all
+fi
+
 # Set up TMUX plugins
 if [ -d ~/.tmux/plugins/tpm ]; then
   git -C ~/.tmux/plugins/tpm pull
@@ -28,6 +37,9 @@ mkdir -p ~/.config
 ln -sfn ~/.dotfiles/ghostty ~/.config/ghostty
 ln -sfn ~/.dotfiles/nvim ~/.config/nvim
 ln -sfn ~/.dotfiles/smug ~/.config/smug
+
+mkdir -p ~/.config/gh-dash
+ln -sfn ~/.dotfiles/gh/dash.yml ~/.config/gh-dash/config.yml
 
 ln -sfn ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sfn ~/.dotfiles/git/gitignore_global ~/.gitignore

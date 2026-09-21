@@ -13,6 +13,7 @@ brew 'codespell'
 brew 'shellcheck'
 brew 'llama.cpp'
 brew 'fzf'
+brew 'gh'
 brew 'zsh-autosuggestions'
 brew 'zsh-syntax-highlighting'
 
