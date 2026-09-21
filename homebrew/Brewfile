@@ -12,6 +12,9 @@ brew 'smug'
 brew 'codespell'
 brew 'shellcheck'
 brew 'llama.cpp'
+brew 'fzf'
+brew 'zsh-autosuggestions'
+brew 'zsh-syntax-highlighting'
 
 # Apps
 cask 'claude-code'

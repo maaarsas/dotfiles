@@ -46,6 +46,14 @@ proj() {
     # || TMUX= tmux attach -t "dev:$name"
 }
 
+# Plugins. syntax-highlighting wraps ZLE widgets, so it has to come after
+# anything that defines them.
+[[ -r $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] \
+  && source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+command -v fzf >/dev/null && source <(fzf --zsh)
+[[ -r $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] \
+  && source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Machine-local: work tooling, secrets, per-machine paths. Sourced last so it
 # can override anything above. Absent on a fresh machine, which is fine.
 [[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
