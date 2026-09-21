@@ -73,6 +73,51 @@ return {
 				end,
 			})
 
+			-- No launch agent: the first editor spawns the server and the last one
+			-- out kills it. --sleep-idle-seconds covers the gap in between, where
+			-- an editor sits open but idle: ~150MB resident instead of ~4.4GB.
+			local port = 8012
+			local log = vim.fn.stdpath("log") .. "/llama-server.log"
+
+			-- detached, with stdio on a file rather than a pipe, so it outlives
+			-- whichever editor happened to spawn it
+			local spawn = {
+				"sh",
+				"-c",
+				("exec llama-server --fim-qwen-3b-default --host 127.0.0.1 --port %d --sleep-idle-seconds 300 >>%s 2>&1"):format(
+					port,
+					vim.fn.shellescape(log)
+				),
+			}
+
+			if vim.fn.executable("llama-server") == 1 then
+				local probe = vim.uv.new_tcp()
+				probe:connect("127.0.0.1", port, function(err)
+					probe:close()
+					if err then
+						vim.schedule(function()
+							vim.system(spawn, { detach = true })
+						end)
+					end
+				end)
+			end
+
+			vim.api.nvim_create_autocmd("VimLeavePre", {
+				group = group,
+				callback = function()
+					-- an editor is a TUI process plus an `nvim --embed` child, and this
+					-- runs in the child, so a count of one means we are the last out
+					local out = vim.system({ "pgrep", "-f", "nvim --embed" }, { text = true }):wait()
+					local editors = 0
+					for _ in (out.stdout or ""):gmatch("%d+") do
+						editors = editors + 1
+					end
+					if editors <= 1 then
+						vim.system({ "pkill", "-f", ("llama-server .*--port %d"):format(port) }):wait()
+					end
+				end,
+			})
+
 			-- LlamaEnable/LlamaDisable are global, not per-buffer
 			local skip = { gitcommit = true, gitrebase = true, markdown = true, [""] = true }
 			vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {

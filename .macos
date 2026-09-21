@@ -161,9 +161,9 @@ defaults write com.apple.menuextra.clock ShowDayOfMonth -int 0
 defaults write com.apple.menuextra.clock ShowDayOfWeek -int 0
 defaults write com.apple.menuextra.clock ShowSeconds -int 1
 
-# ==============================================================================
+################################################################################
 # Set Default Keyboard Layout to Lithuanian (ID: 30761)
-# ==============================================================================
+################################################################################
 
 # 1. Define the single active input source array
 PLIST_DATA='<dict>
@@ -201,7 +201,7 @@ dockutil --add "/Applications/Firefox.app" --no-restart
 dockutil --add "/Applications/Ghostty.app" --no-restart
 dockutil --add "/System/Applications/System Settings.app" --no-restart
 
-dockutil --add '~/Downloads' --view grid --display stack --no-restart
+dockutil --add "~/Downloads" --view grid --display stack --no-restart
 
 ###############################################################################
 # Kill affected applications                                                  #
