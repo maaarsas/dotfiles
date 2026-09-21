@@ -37,6 +37,15 @@ ln -sfn ~/.dotfiles/zsh/zshenv ~/.zshenv
 
 mkdir -p ~/.claude
 ln -sfn ~/.dotfiles/claude/settings.json ~/.claude/settings.json
+ln -sfn ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+
+# enabledPlugins in settings.json only toggles plugins that are already
+# installed, so the download has to happen here.
+if command -v claude >/dev/null; then
+  for plugin in gopls-lsp lua-lsp ruby-lsp; do
+    claude plugin install "$plugin@claude-plugins-official" || true
+  done
+fi
 
 # Machine-local zsh config lives outside this repo (it holds work tooling and
 # credentials). Seed empty files so the sourcing in zshrc/zshenv is a no-op.
