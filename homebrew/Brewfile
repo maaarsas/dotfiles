@@ -16,6 +16,7 @@ brew 'fzf'
 brew 'gh'
 brew 'zsh-autosuggestions'
 brew 'zsh-syntax-highlighting'
+brew 'dockutil'
 
 # Apps
 cask 'claude-code'
