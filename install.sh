@@ -10,7 +10,6 @@ fi
 
 brew update
 brew bundle install --upgrade --file "$DOTFILES/homebrew/Brewfile"
-"$DOTFILES/homebrew/setup-cleanup-job.sh"
 
 # Homebrew doesn't package gh extensions, so gh/extensions is their manifest.
 if command -v gh >/dev/null; then
