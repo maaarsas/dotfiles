@@ -5,4 +5,5 @@
 .DS_Store
 .idea
 .ruby-lsp/
+.grip/
 **/.claude/settings.local.json
