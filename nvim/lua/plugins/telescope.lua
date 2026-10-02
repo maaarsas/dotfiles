@@ -51,6 +51,7 @@ return {
 					-- defaults to true), so this stays a full find_files replacement
 					default_workspace = "CWD",
 					show_filter_column = false,
+					db_safe_mode = false,
 				},
 			},
 		},
