@@ -1,21 +1,10 @@
 {
-  "theme": "auto",
-  "editorMode": "vim",
-  "preferredNotifChannel": "ghostty",
-  "bashOutputMaxChars": 30000,
-  "spinnerTipsEnabled": false,
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
-  },
   "permissions": {
     "allow": [
       "Read",
       "Glob",
       "Grep",
       "WebSearch",
-
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
@@ -52,7 +41,6 @@
       "Bash(pgrep:*)",
       "Bash(lsof:*)",
       "Bash(infocmp:*)",
-
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -68,7 +56,6 @@
       "Bash(git config --get:*)",
       "Bash(git config --list:*)",
       "Bash(git check-ignore:*)",
-
       "Bash(gh repo view:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr list:*)",
@@ -78,7 +65,6 @@
       "Bash(gh issue list:*)",
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
-
       "Bash(brew list:*)",
       "Bash(brew info:*)",
       "Bash(brew outdated:*)",
@@ -92,7 +78,6 @@
       "Bash(tmux display-message:*)",
       "Bash(smug list:*)",
       "Bash(defaults read:*)",
-
       "Bash(mise ls:*)",
       "Bash(mise current:*)",
       "Bash(mise env:*)",
@@ -107,7 +92,6 @@
       "Bash(gopls version:*)",
       "Bash(golangci-lint --version:*)",
       "Bash(launchctl list:*)",
-
       "Bash(curl -s https://raw.githubusercontent.com/:*)",
       "Bash(curl -sL https://raw.githubusercontent.com/:*)"
     ],
@@ -123,5 +107,23 @@
       "Read(**/id_rsa*)",
       "Bash(sudo:*)"
     ]
+  },
+  "bashOutputMaxChars": 30000,
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "spinnerTipsEnabled": false,
+  "theme": "auto",
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "worktree": {
+    "bgIsolation": "none"
   }
 }

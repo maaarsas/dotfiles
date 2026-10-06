@@ -26,3 +26,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+vim.keymap.set("n", "<leader>fy", function()
+	vim.fn.setreg("+", vim.fn.expand("%:."))
+end, { desc = "Copy relative file path" })
