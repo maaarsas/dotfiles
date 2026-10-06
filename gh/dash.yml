@@ -1,0 +1,19 @@
+prSections:
+  - title: Mine
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+
+issuesSections:
+  - title: Assigned
+    filters: is:open assignee:@me
+  - title: Mine
+    filters: is:open author:@me
+
+defaults:
+  view: prs
+  preview:
+    open: true
+    width: 60
