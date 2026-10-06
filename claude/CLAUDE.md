@@ -1,20 +1,29 @@
 # Working preferences
 
-## Editing config
+## Small iterations
+
+Work in small iterations. Do not create a large change in one go.
+One iteration should be easily reviewed by a human. In code lines, it is less than 100-200 lines.
+Start with a minimal version, when it is done, suggest the next steps to continue.
+
+Before big changes, suggest a plan firstly and split in into smaller steps.
+
+## Editing
 
 Make the change and nothing more. Put the reasoning in the chat reply, not in
 the file. Comment only mechanics that are genuinely surprising without it — not
 self-evident entries in a list.
 
-Never hardcode absolute paths. Use an already-exported variable (`$HOME`,
-`$HOMEBREW_PREFIX`, `$XDG_CONFIG_HOME`) instead. Avoid command substitution in
+Prefer simple stupid code. Do not overcomplicate. Ask me before introducing complex logic or handling rare edge cases.
+
+Never hardcode absolute paths. Avoid command substitution in
 shell startup files — it costs a subprocess on every shell. Guard optional
 sources so they degrade quietly when the target is missing.
 
 ## Dependencies
 
 Declare a new dependency in the project's manifest, then install from it. Never
-install ad-hoc: it works now and disappears on the next machine.
+install ad-hoc.
 
 When a tool ships an official plugin, install the plugin rather than pasting its
 logic inline. Write custom config only for what the plugin leaves to the user.

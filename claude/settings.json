@@ -105,7 +105,9 @@
       "Read(**/.env.*)",
       "Read(**/*.pem)",
       "Read(**/id_rsa*)",
-      "Bash(sudo:*)"
+      "Bash(sudo:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   },
   "worktree": {
