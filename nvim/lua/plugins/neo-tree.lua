@@ -14,7 +14,11 @@ return {
           visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
+          never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+            ".DS_Store",
+          },
         },
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
       },
     },
   },
