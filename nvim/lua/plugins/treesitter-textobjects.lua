@@ -46,6 +46,9 @@ return {
 				["[F"] = { move.goto_previous_end, "@function.outer" },
 				["]c"] = { move.goto_next_start, "@class.outer" },
 				["[c"] = { move.goto_previous_start, "@class.outer" },
+				-- shadows the :next / :previous arglist defaults
+				["]a"] = { move.goto_next_start, "@parameter.inner" },
+				["[a"] = { move.goto_previous_start, "@parameter.inner" },
 			}
 			for key, spec in pairs(moves) do
 				vim.keymap.set({ "n", "x", "o" }, key, function()
