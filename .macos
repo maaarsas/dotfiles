@@ -199,6 +199,7 @@ dockutil --remove all --no-restart
 dockutil --add "/System/Applications/Apps.app" --no-restart
 dockutil --add "/Applications/Firefox.app" --no-restart
 dockutil --add "/Applications/Ghostty.app" --no-restart
+dockutil --add "/System/Applications/Utilities/Activity Monitor.app" --no-restart
 dockutil --add "/System/Applications/System Settings.app" --no-restart
 
 dockutil --add "~/Downloads" --view grid --display stack --no-restart
