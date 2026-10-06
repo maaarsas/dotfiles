@@ -17,6 +17,7 @@ return {
 					"checkhealth",
 					"man",
 					"gitcommit",
+					"neotest-summary",
 				},
 			},
 		},
