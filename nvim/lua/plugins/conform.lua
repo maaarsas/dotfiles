@@ -13,13 +13,18 @@ return {
 				lua = { "stylua" },
 				sh = { "shfmt" },
 				json = { "jq" },
-				yaml = { "prettierd", "prettier", stop_after_first = true },
+				-- not prettier: it rewrites single quotes to double
+				yaml = { "yamlfmt" },
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				-- Use the "*" filetype to run formatters on all filetypes.
 				["*"] = { "codespell" },
 				-- Use the "_" filetype to run formatters on filetypes that don't
 				-- have other formatters configured.
 				["_"] = { "trim_whitespace" },
+			},
+			formatters = {
+				-- yamlfmt drops blank lines otherwise
+				yamlfmt = { prepend_args = { "-formatter", "retain_line_breaks=true" } },
 			},
 			-- filetypes without an entry above fall back to their language server
 			default_format_opts = { lsp_format = "fallback" },
