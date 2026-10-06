@@ -191,6 +191,19 @@ sudo defaults write com.apple.HIToolbox AppleDefaultAsciiInputSource -array "$PL
 defaults write com.apple.Safari "ShowFullURLInSmartSearchField" -bool "true"
 
 ###############################################################################
+# Dock icons                                                                  #
+###############################################################################
+
+dockutil --remove all --no-restart
+
+dockutil --add "/System/Applications/Apps.app" --no-restart
+dockutil --add "/Applications/Firefox.app" --no-restart
+dockutil --add "/Applications/Ghostty.app" --no-restart
+dockutil --add "/System/Applications/System Settings.app" --no-restart
+
+dockutil --add '~/Downloads' --view grid --display stack --no-restart
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
