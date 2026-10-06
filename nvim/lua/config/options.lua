@@ -10,6 +10,7 @@ vim.env.PATH = vim.fn.expand("~/.local/share/mise/shims") .. ":" .. vim.env.PATH
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 -- foldinner blanks the nesting-level digits a 1-wide fold column would print
@@ -18,11 +19,12 @@ opt.foldcolumn = "1"
 opt.foldlevel = 99 -- files open unfolded
 opt.foldlevelstart = 99
 opt.foldmethod = "indent" -- treesitter takes over where a parser is available
+opt.ignorecase = true -- Ignore case
 opt.list = true -- Show some invisible characters (tabs...
 opt.listchars = { tab = "→→", space = "·", nbsp = "␣" }
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Show line numbers
-opt.relativenumber = false -- Absolute line numbers
+opt.relativenumber = true -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions =
 	{ "blank", "buffers", "curdir", "folds", "help", "localoptions", "tabpages", "terminal", "winpos", "winsize" }

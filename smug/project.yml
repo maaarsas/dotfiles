@@ -11,7 +11,7 @@
 #   +-----------------------------+
 #   |            nvim             |
 #   +--------------+--------------+
-#   |   terminal   |    claude    |
+#   |   terminal   |   terminal   |
 #   +--------------+--------------+
 
 session: dev
@@ -22,18 +22,8 @@ windows:
     layout: main-horizontal
     commands:
       - nvim .
-    # NOTE: declared in reverse. smug splits the same original pane for each
-    # entry, so each new pane takes index 1 and pushes the previous one right.
-    # main-horizontal orders panes by index, so the last entry ends up leftmost.
     panes:
       - type: horizontal
         root: .
       - type: horizontal
         root: .
-        commands:
-          # nested tmux, so this pane gets its own tabs. TMUX= clears the
-          # outer marker so tmux allows the nesting; -A attaches if the
-          # session already exists instead of erroring. -L puts it on its own
-          # socket -- a second client on the default socket would be the same
-          # server, sharing its global status bar with the outer session.
-          - TMUX= tmux -L nested new-session -A -s term-${name} -c "${root}"
