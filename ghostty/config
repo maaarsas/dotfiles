@@ -3,5 +3,5 @@ font-family = "Monaco"
 font-family = "MesloLGM Nerd Font Mono"
 adjust-cell-height = 10%
 # vim-illuminate's <a-n>/<a-p> need Option to arrive as Alt
-macos-option-as-alt = true
+macos-option-as-alt = left
 font-size = 12
