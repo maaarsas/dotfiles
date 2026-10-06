@@ -14,8 +14,12 @@ brew update
 brew tap homebrew/bundle
 brew bundle
 
-
+# Set up TMUX
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -s ~/.dotfiles/.tmux.conf ~/.tmux.conf
+
+# Set up symlinks
+ln -s ~/.dotfiles/nvim ~/.config/nvim
 
 # Set macOS preferences
 # We will run this last because this will reload the shell
