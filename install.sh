@@ -1,55 +1,25 @@
 #!/bin/sh
 
+DOTFILES=$(cd -- "$(dirname -- "$0")" && pwd)
+
 echo "Setting up your Mac..."
 
-# Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
+if ! command -v brew >/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Update Homebrew recipes
 brew update
-
-# Install all our dependencies with bundle (See Brewfile), upgrading outdated ones
-brew bundle install --upgrade --file homebrew/Brewfile
-
-# Set up homebrew periodic background cleanup
-chmod +x ./homebrew/setup-cleanup-job.sh
-./homebrew/setup-cleanup-job.sh
+brew bundle install --upgrade --file "$DOTFILES/homebrew/Brewfile"
+"$DOTFILES/homebrew/setup-cleanup-job.sh"
 
 # Homebrew doesn't package gh extensions, so gh/extensions is their manifest.
 if command -v gh >/dev/null; then
   while read -r extension; do
     case $extension in '' | \#*) continue ;; esac
     gh extension install "$extension" 2>/dev/null || true
-  done < gh/extensions
+  done < "$DOTFILES/gh/extensions"
   gh extension upgrade --all
 fi
-
-# Set up TMUX plugins
-if [ -d ~/.tmux/plugins/tpm ]; then
-  git -C ~/.tmux/plugins/tpm pull
-else
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
-mkdir -p ~/.config
-ln -sfn ~/.dotfiles/ghostty ~/.config/ghostty
-ln -sfn ~/.dotfiles/nvim ~/.config/nvim
-ln -sfn ~/.dotfiles/smug ~/.config/smug
-
-mkdir -p ~/.config/gh-dash
-ln -sfn ~/.dotfiles/gh/dash.yml ~/.config/gh-dash/config.yml
-
-ln -sfn ~/.dotfiles/git/gitconfig ~/.gitconfig
-ln -sfn ~/.dotfiles/git/gitignore_global ~/.gitignore
-ln -sfn ~/.dotfiles/.tmux.conf ~/.tmux.conf
-ln -sfn ~/.dotfiles/zsh/zshrc ~/.zshrc
-ln -sfn ~/.dotfiles/zsh/zshenv ~/.zshenv
-
-mkdir -p ~/.claude
-ln -sfn ~/.dotfiles/claude/settings.json ~/.claude/settings.json
-ln -sfn ~/.dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 
 # enabledPlugins in settings.json only toggles plugins that are already
 # installed, so the download has to happen here.
@@ -59,10 +29,32 @@ if command -v claude >/dev/null; then
   done
 fi
 
+if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+  git -C "$HOME/.tmux/plugins/tpm" pull
+else
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+link() {
+  mkdir -p "$(dirname "$2")"
+  ln -sfn "$DOTFILES/$1" "$2"
+}
+
+link .tmux.conf           "$HOME/.tmux.conf"
+link claude/CLAUDE.md     "$HOME/.claude/CLAUDE.md"
+link claude/settings.json "$HOME/.claude/settings.json"
+link gh/dash.yml          "$HOME/.config/gh-dash/config.yml"
+link ghostty              "$HOME/.config/ghostty"
+link git/gitconfig        "$HOME/.gitconfig"
+link git/gitignore_global "$HOME/.gitignore"
+link nvim                 "$HOME/.config/nvim"
+link smug                 "$HOME/.config/smug"
+link zsh/zshenv           "$HOME/.zshenv"
+link zsh/zshrc            "$HOME/.zshrc"
+
 # Machine-local zsh config lives outside this repo (it holds work tooling and
 # credentials). Seed empty files so the sourcing in zshrc/zshenv is a no-op.
-touch ~/.zshrc.local ~/.zshenv.local
+touch "$HOME/.zshrc.local" "$HOME/.zshenv.local"
 
-# Set macOS preferences
-# We will run this last because this will reload the shell
-source .macos
+# Last: this restarts Finder, Dock and friends.
+bash "$DOTFILES/.macos"
