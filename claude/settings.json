@@ -108,26 +108,27 @@
       "Bash(sudo:*)"
     ]
   },
+  "worktree": {
+    "bgIsolation": "none"
+  },
   "bashOutputMaxChars": 30000,
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true
   },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
   "spinnerTipsEnabled": false,
-  "theme": "auto",
-  "editorMode": "vim",
-  "preferredNotifChannel": "ghostty",
   "modelSettings": {
     "claude-opus-5-5": {
       "effortLevel": "high"
     }
   },
-  "worktree": {
-    "bgIsolation": "none"
-  },
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true
-  }
+  "theme": "auto",
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty",
+  "fastMode": true
 }

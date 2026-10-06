@@ -14,7 +14,7 @@ return {
 		end,
 		config = function()
 			local group = vim.api.nvim_create_augroup("llama_blink", { clear = true })
-			local debounce_ms = 100
+			local debounce_ms = 500
 
 			-- llama.vim ships no default for this group on nvim, so the ghost
 			-- text would otherwise render at Normal
