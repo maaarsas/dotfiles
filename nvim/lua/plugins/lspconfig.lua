@@ -13,6 +13,7 @@ return {
 						usePlaceholders = true, -- tab through params after accepting
 						completeUnimported = true, -- suggest + auto-import unimported packages
 						staticcheck = true,
+						semanticTokens = true,
 						analyses = {
 							unusedparams = true,
 							unusedwrite = true,
