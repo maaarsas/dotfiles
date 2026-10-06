@@ -55,26 +55,20 @@ return {
 				},
 			})
 
-			-- Language features only; rubocop below owns lint and format, the same
-			-- split as gopls / golangci_lint_ls.
 			-- Not via mason: its binstub hardcodes a shebang to one ruby, so every
 			-- project would run that version instead of its own .ruby-version.
 			-- Resolved from PATH (mise shims) so each project gets its own.
+			--
+			-- rubocop runs as ruby-lsp's own addon rather than a second client:
+			-- nvim spawns servers with cmd_cwd only (no root_dir fallback), so a
+			-- standalone `bundle exec rubocop --lsp` inherited nvim's cwd, and this
+			-- repo's `ruby File.read('.ruby-version')` in the Gemfile is cwd-relative
+			-- -> Bundler::RubyVersionMismatch. The addon uses the project bundle.
 			vim.lsp.config("ruby_lsp", {
 				init_options = {
-					formatter = "none",
-					linters = {},
+					formatter = "rubocop",
+					linters = { "rubocop" },
 				},
-			})
-
-			-- bundle exec: every repo pins its own rubocop, and rubocop-rails only
-			-- loads from the project bundle.
-			-- lspconfig's default root_markers include ".git", which would start
-			-- this in any repo and fail with "no Gemfile"
-			vim.lsp.config("rubocop", {
-				cmd = { "bundle", "exec", "rubocop", "--lsp" },
-				root_markers = { "Gemfile" },
-				workspace_required = true,
 			})
 
 			-- bashls runs shellcheck itself when it is on PATH (see Brewfile)
@@ -86,7 +80,6 @@ return {
 				"jsonls",
 				"bashls",
 				"ruby_lsp",
-				"rubocop",
 			})
 		end,
 	},
