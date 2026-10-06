@@ -11,6 +11,7 @@ brew 'lazygit'
 brew 'smug'
 brew 'codespell'
 brew 'shellcheck'
+brew 'llama.cpp'
 
 # Apps
 cask 'claude-code'
