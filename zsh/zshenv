@@ -1,0 +1,11 @@
+# Sourced by every zsh, interactive or not. Keep it small and fast.
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+# Rancher Desktop's docker, docker-compose, kubectl and nerdctl
+[[ -d $HOME/.rd/bin ]] && export PATH="$HOME/.rd/bin:$PATH"
+
+# Machine-local environment. Kept here rather than in ~/.zshrc.local so the
+# vars reach non-interactive shells too, the way they did before the split.
+[[ -r ~/.zshenv.local ]] && source ~/.zshenv.local
