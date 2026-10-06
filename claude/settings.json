@@ -125,5 +125,9 @@
   },
   "worktree": {
     "bgIsolation": "none"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
   }
 }

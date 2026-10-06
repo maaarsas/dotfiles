@@ -42,6 +42,7 @@ opt.undofile = true
 opt.updatetime = 250 -- neotest refreshes on CursorHold; the 4s default is too slow
 opt.undolevels = 10000
 opt.winminwidth = 5 -- Minimum window width
+opt.winborder = "rounded"
 
 vim.diagnostic.config({
 	severity_sort = true,

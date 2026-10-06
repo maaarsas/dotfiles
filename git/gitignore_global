@@ -7,3 +7,5 @@
 .ruby-lsp/
 .grip/
 **/.claude/settings.local.json
+
+**/.claude/.cc-writes/
