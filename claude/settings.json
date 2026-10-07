@@ -5,6 +5,8 @@
       "Glob",
       "Grep",
       "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
@@ -41,6 +43,10 @@
       "Bash(pgrep:*)",
       "Bash(lsof:*)",
       "Bash(infocmp:*)",
+      "Bash(sw_vers)",
+      "Bash(vm_stat)",
+      "Bash(sysctl -n:*)",
+      "Bash(shellcheck:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -68,6 +74,12 @@
       "Bash(brew list:*)",
       "Bash(brew info:*)",
       "Bash(brew outdated:*)",
+      "Bash(brew uses:*)",
+      "Bash(brew bundle check:*)",
+      "Bash(brew bundle list:*)",
+      "Bash(bundle show:*)",
+      "Bash(rdctl version:*)",
+      "Bash(rdctl list-settings:*)",
       "Bash(tmux list-clients:*)",
       "Bash(tmux list-sessions:*)",
       "Bash(tmux list-windows:*)",
@@ -81,6 +93,9 @@
       "Bash(mise ls:*)",
       "Bash(mise current:*)",
       "Bash(mise env:*)",
+      "Bash(mise which:*)",
+      "Bash(mise settings:*)",
+      "Bash(mise --version)",
       "Bash(ghostty +show-config:*)",
       "Bash(ghostty +list-fonts:*)",
       "Bash(docker context ls:*)",
@@ -121,7 +136,15 @@
   },
   "sandbox": {
     "enabled": true,
-    "autoAllowBashIfSandboxed": true
+    "autoAllowBashIfSandboxed": true,
+    "failIfUnavailable": true,
+    "filesystem": {
+      "allowWrite": [
+        "~/Library/Caches/go-build",
+        "~/go/pkg/mod",
+        "~/Library/Caches/golangci-lint"
+      ]
+    }
   },
   "spinnerTipsEnabled": false,
   "modelSettings": {
